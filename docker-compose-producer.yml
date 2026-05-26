@@ -1,0 +1,15 @@
+networks:
+  temporal-network:
+    driver: bridge
+    name: temporal-network
+
+services:
+
+  producer:
+    image: temporal-entity-demo/producer:latest
+    deploy:
+      replicas: 1
+    environment:
+      PULSAR_HOST: pulsar
+    networks:
+      - temporal-network

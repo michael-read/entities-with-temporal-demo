@@ -1,0 +1,20 @@
+// serialization for the data on the Pulsar topic
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ai.tensor7.app.pulsar.serialization";
+option java_outer_classname = "UserEventProto";
+
+message UserPurchaseProto {
+   string msg_id = 1;
+   int64 msg_time = 2;
+   string user_id = 3;
+   string product = 4;
+   int64 quantity = 5;
+   int64 price = 6;
+}
+
+message UserActionProto {
+   string user_id = 1;
+   string description = 2;
+}

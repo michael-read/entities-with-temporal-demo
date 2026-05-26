@@ -1,0 +1,57 @@
+global:
+  scrape_interval: 10s
+
+scrape_configs:
+  - job_name: "proxy"
+    honor_labels: true
+    static_configs:
+      - targets:
+          - 'pulsar:8080'
+
+  - job_name: "pulsar"
+    honor_labels: true
+    static_configs:
+      - targets:
+          - 'pulsar:8080'
+
+  - job_name: "bookie"
+    honor_labels: true
+    static_configs:
+      - targets:
+          - 'pulsar:8080'
+
+  - job_name: "zookeeper"
+    honor_labels: true
+    static_configs:
+      - targets:
+          - 'pulsar:8080'
+
+  - job_name: 'temporalmetrics'
+    metrics_path: /metrics
+    scheme: http
+    fallback_scrape_protocol: "PrometheusText0.0.4"
+    static_configs:
+      # Temporal Service metrics target
+      - targets:
+          - 'temporal:8000'
+        labels:
+          group: 'server-metrics'
+
+      # Local app targets (set in SDK code)
+      - targets:
+          - 'entity-demo-java-entity-1:8077'
+          - 'entity-demo-java-entity-2:8077'
+          - 'entity-demo-java-entity-3:8077'
+          - 'entity-demo-java-entity-4:8077'
+          - 'entity-demo-java-entity-5:8077'
+        labels:
+          group: 'entity-metrics'
+
+      - targets:
+          - 'entity-demo-java-consumer-1:8077'
+          - 'entity-demo-java-consumer-2:8077'
+          - 'entity-demo-java-consumer-3:8077'
+          - 'entity-demo-java-consumer-4:8077'
+        labels:
+          group: 'consumer-metrics'
+

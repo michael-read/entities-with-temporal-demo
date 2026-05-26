@@ -1,0 +1,16 @@
+networks:
+  temporal-network:
+    driver: bridge
+    name: temporal-network
+
+services:
+
+  consumer:
+    image: temporal-entity-demo/consumer:latest
+    deploy:
+      replicas: 1
+    environment:
+      PULSAR_HOST: pulsar
+      TEMPORAL_SERVER_TARGET_IP: temporal:7233
+    networks:
+      - temporal-network

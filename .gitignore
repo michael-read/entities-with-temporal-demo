@@ -1,0 +1,6 @@
+*.class
+.idea
+.bsp
+.obsidian
+target/
+clusterdata.db
