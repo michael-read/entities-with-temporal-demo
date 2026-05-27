@@ -21,6 +21,8 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+    post_start:
+      - command: /pulsar/init/init-pulsar.sh
     environment:
       PULSAR_MEM: "-Xms256m -Xmx512m"
     networks:
