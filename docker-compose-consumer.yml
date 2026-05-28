@@ -2,6 +2,7 @@ networks:
   temporal-network:
     driver: bridge
     name: temporal-network
+    external: true
 
 services:
 

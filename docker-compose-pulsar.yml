@@ -2,6 +2,7 @@ networks:
   temporal-network:
     driver: bridge
     name: temporal-network
+    external: true
 
 services:
   pulsar:
@@ -10,8 +11,6 @@ services:
     command: /pulsar/bin/pulsar standalone
     volumes:
       - ./pulsar/init-pulsar.sh:/pulsar/init/init-pulsar.sh:ro  # Mount the script
-#      - pulsar_data:/pulsar/data
-#      - pulsar_conf:/pulsar/conf
     ports:
       - "6650:6650"
       - "8081:8080"
@@ -27,7 +26,3 @@ services:
       PULSAR_MEM: "-Xms256m -Xmx512m"
     networks:
       - temporal-network
-
-#volumes:
-# pulsar_data:
-#  pulsar_conf:
