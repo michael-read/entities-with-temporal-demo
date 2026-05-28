@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This repository along with it's corresponding blog demonstrates how to build, test, and run Entities using Temporal Workflows.
+This repository along with its corresponding blog demonstrates how to build, test, and run Entities using Temporal Workflows.
 
 ## What are Entities?
 
