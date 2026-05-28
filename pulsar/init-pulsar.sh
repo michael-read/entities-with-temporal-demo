@@ -1,6 +1,6 @@
 #!/bin/bash
-echo "sleeping for 18 seconds..."
-sleep 18s
+echo "sleeping for 15 seconds..."
+sleep 15s
 echo "tenants create tenant-a..."
 /pulsar/bin/pulsar-admin tenants create tenant-a
 echo "namespaces create tenant-a/entity-demo..."
