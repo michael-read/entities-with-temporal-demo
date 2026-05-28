@@ -87,8 +87,8 @@ at approximately line 88 of the **temporal** service in the **/samples-server/co
 
 1. Build and containerize this project to your local Docker repository:
 ```bash
-    $ cd entity-demo-java
-    $ mvn compile package
+    cd entity-demo-java
+    mvn compile package
 ```
 This should result in creating the following images:
 ```
@@ -103,15 +103,15 @@ temporal-entity-demo/user-entity:latest   436MB
 You can verify the above images using the "docker images" command.
 
 2. Open a terminal window, and start the supporting Temporal Server:
-```
-    $ cd /samples-server/compose
-    $ docker compose up
+```bash
+    cd /samples-server/compose
+    docker compose up
 ```
 > **_Note:_** wait until comes to a slow crawl before the next step.
 3. Open another terminal window, and switch to the directory of this [README.md](http://README.md).
 ```bash
-    $ cd entity-demo-java
-    $ docker compose up
+    cd entity-demo-java
+    docker compose up
 ```
 
 > **_Note:_**: you should wait for at least 30 seconds before the next step.
@@ -119,7 +119,7 @@ You can verify the above images using the "docker images" command.
 4. Pulsar should be up and running now with the init script having created the tenant, topic, and three partitions. Next, open another terminal window, in the same directory, and issue the following to start the streaming pipeline:
 
 ```bash
-    $ docker compose scale producer=1 consumer=3
+    docker compose scale producer=1 consumer=3
 ```
 
 ### Look at Observability
@@ -190,6 +190,6 @@ $ docker compose scale entity=6
 ### How to shutdown.
 
 There should be two terminal windows open. You can enter the “d” charter to detach, and then enter:  
-``` 
+```bash 
 docker compose down  
 ```
