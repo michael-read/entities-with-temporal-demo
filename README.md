@@ -136,13 +136,13 @@ The “Pulsar \- Topic” dashboard will give you insights to how the broker is 
 
 If you enabled the PROMETHEUS\_ENDPOINT then you should have metrics for both the Temporal workers, and the Temporal server from the Dashboards/Temporal folder.
 
-Poke around the Temporal UI
+#### Poke around the Temporal UI
 
 Open the Temporal UI by opening a browser and entering the address [http://localhost:8080](http://localhost:8080).
 
 The default Temporal UI display is running **Workflows**.There should eventually be 2000 workflows running concurrently. If you want to see the state of any given user entity, click on the specific workflow to open it, and click on **Queries**, and finally **\[Run Query\]**.
 
-Check out Prometheus scraping
+#### Check out Prometheus scraping
 
 Open the Prometheus scraping targets display by opening a browser and entering the address http://localhost:9090/targets.
 
