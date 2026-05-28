@@ -78,10 +78,10 @@ This demo has been developed and runs successfully on the following laptop speci
 If you’d like to take a look at Grafana observability for the Temporal Server in later steps then you’ll need to add the environment variable:
 
 ```
-- PROMETHEUS\_ENDPOINT=0.0.0.0:8000  
+- PROMETHEUS_ENDPOINT=0.0.0.0:8000  
 ```
 
-at approximately line 88 of the **temporal** service in the /samples-server/compose/docker-compose.yml file before continuing.
+at approximately line 88 of the **temporal** service in the **/samples-server/compose/docker-compose.yml** file before continuing.
 
 ### Steps to Run:
 
