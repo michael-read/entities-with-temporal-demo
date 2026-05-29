@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 
-@WorkflowInterface
 public class UserEntityWorkflowImpl implements UserEntityWorkflow {
 
     private final Logger log = Workflow.getLogger(UserEntityWorkflowImpl.class);
