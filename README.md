@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This repository along with its corresponding blog demonstrates how to build, test, and run Entities using Temporal Workflows.
+This repository along with its corresponding blog demonstrates how to build, test, and run Entities using Temporal Workflows This blog post along with its corresponding Github repo demonstrates how to build, test, and run Entities using Temporal Workflows and the Java SDK.
 
 ## What are Entities?
 
@@ -10,7 +10,9 @@ In Domain-Driven Design, an Entity is a fundamental concept for modeling busines
 
 ## Why Temporal?
 
-Temporal Workflows provide simple, powerful tools for creating resilient and scalable systems. Combined with Entities, they create an ideal foundation for building robust business applications. It's worth noting that Entity workflows in Temporal generally run indefinitely, depending on the use case.
+Temporal Workflows provide simple, powerful tools for creating resilient and scalable systems. Combined with Entities, they create an ideal foundation for building robust business applications. 
+
+It's worth noting that Entity workflows in Temporal generally run indefinitely, depending on the use case.
 
 ## The Demo
 
