@@ -18,5 +18,4 @@ public interface UserEntityWorkflow {
 
     @QueryMethod
     UserState getEntity();
-
 }
