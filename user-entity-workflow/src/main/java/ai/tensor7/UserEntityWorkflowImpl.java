@@ -4,7 +4,6 @@ import ai.tensor7.model.UserInput;
 import ai.tensor7.model.UserPurchaseEvent;
 import ai.tensor7.model.UserState;
 import io.temporal.workflow.Workflow;
-import io.temporal.workflow.WorkflowInterface;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -47,9 +46,6 @@ public class UserEntityWorkflowImpl implements UserEntityWorkflow {
         if (env.containsKey("USER_ENTITY_POLLLING_RATE")) {
             maxAwaitTime = Duration.parse(env.get("TEMPORAL_SERVER_TARGET"));
         }
-
-        log.info("User Entity Workflow polling rate: {} minutes", maxAwaitTime.toMinutes());
-
     }
 
     @Override
