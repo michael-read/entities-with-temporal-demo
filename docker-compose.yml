@@ -47,8 +47,6 @@ services:
     environment:
       PULSAR_HOST: pulsar
       TEMPORAL_SERVER_TARGET_IP: temporal:7233
-    ports:
-      - 8070-8077:8077
     networks:
       - temporal-network
 
@@ -56,8 +54,6 @@ services:
     image: temporal-entity-demo/user-entity:latest
     deploy:
       replicas: 5
-    ports:
-      - 8040-8049:8077
     networks:
       - temporal-network
 
