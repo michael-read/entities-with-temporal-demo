@@ -2,23 +2,14 @@
 
 ## Introduction
 
-This repository along with its corresponding blog demonstrates how to build, test, and run Entities using Temporal Workflows with the Java SDK.
+This repository, along with its corresponding [blog post here](https://www.tensor7.ai/post/creating-entities-with-temporal-workflows) demonstrates how to build, test, and run Entities using Temporal Workflows with the Java SDK.
 
-## What are Entities?
-
-In Domain-Driven Design, an Entity is a fundamental concept for modeling business logic. Unlike regular programming objects, Entities are defined by their unique identity and carefully controlled changes. They represent core business rules while remaining independent of databases, user interfaces, and external frameworks—making them a cornerstone of modern software architecture.
-
-## Why Temporal?
-
-Temporal Workflows provide simple, powerful tools for creating resilient and scalable systems. Combined with Entities, they create an ideal foundation for building robust business applications. 
-
-It's worth noting that Entity workflows in Temporal generally run indefinitely, depending on the use case.
 
 ## The Demo
 
 ### System Architecture
 
-This demo showcases a streaming data pipeline built with Pulsar message broker, all running in Docker containers that passes events into the User Entity Workflow.
+This demo showcases a streaming data pipeline built with a Pulsar message broker, all running in Docker containers that pass events into the User Entity Workflow.
 
 #### How It Works
 
@@ -46,7 +37,7 @@ This pipeline demonstrates how data moves through the system—from generation t
 
 ## Running The Demo
 
-This demo has been developed and runs successfully on the following laptop specification:  
+This demo has been developed and runs successfully on the following laptop specifications:  
 
 ### Hardware Information:  
 - Hardware Model:                              System76 Oryx Pro  
@@ -77,7 +68,7 @@ This demo has been developed and runs successfully on the following laptop speci
 * Clone the Temporal Server Samples to a convenient place from [here](https://github.com/temporalio/samples-server).
 * Clone this repository to a convenient place.
 
-If you’d like to take a look at Grafana observability for the Temporal Server in later steps then you’ll need to add the environment variable:
+If you’d like to take a look at Grafana observability for the Temporal Server in later steps, then you’ll need to add the environment variable:
 
 ```
 - PROMETHEUS_ENDPOINT=0.0.0.0:8000  
@@ -109,16 +100,16 @@ You can verify the above images using the "docker images" command.
     cd /samples-server/compose
     docker compose up
 ```
-> **_Note:_** wait until comes to a slow crawl before the next step.
+> **_Note:_** Wait until it comes to a slow crawl before the next step.
 3. Open another terminal window, and switch to the directory of this [README.md](http://README.md).
 ```bash
     cd entity-demo-java
     docker compose up
 ```
 
-> **_Note:_**: you should wait for at least 30 seconds before the next step.
+> **_Note:_**: You should wait for at least 30 seconds before the next step.
 
-4. Pulsar should be up and running now with the init script having created the tenant, topic, and three partitions. Next, open another terminal window, in the same directory, and issue the following to start the streaming pipeline:
+4. Pulsar should be up and running. The init script having created the tenant, topic, and three partitions. Next, open another terminal window, in the same directory, and issue the following to start the streaming pipeline:
 
 ```bash
     docker compose scale producer=1 consumer=3
@@ -134,21 +125,21 @@ You can verify the above images using the "docker images" command.
 4. Once logged in, close the ad banner, and click on “Dashboards” on the left side.
 5. Under Dashboards, click on the Pulsar folder, and then click on the “Pulsar \- Topic” link.
 
-The “Pulsar \- Topic” dashboard will give you insights to how the broker is performing. The most interesting is probably the “Local backlog”.
+The “Pulsar \- Topic” dashboard will give you insights to how the broker is performing. The most interesting metric is probably the “Local backlog”.
 
-If you enabled the PROMETHEUS\_ENDPOINT then you should have metrics for both the Temporal workers, and the Temporal server from the Dashboards/Temporal folder.
+If you enabled the PROMETHEUS\_ENDPOINT, then you should have metrics for both the Temporal workers and the Temporal server from the Dashboards/Temporal folder.
 
 #### Poke around the Temporal UI
 
 Open the Temporal UI by opening a browser and entering the address [http://localhost:8080](http://localhost:8080).
 
-The default Temporal UI display is running **Workflows**.There should eventually be 2000 workflows running concurrently. If you want to see the state of any given user entity, click on the specific workflow to open it, and click on **Queries**, and finally **\[Run Query\]**.
+The default Temporal UI display is running **Workflows**. There should eventually be 2000 workflows running concurrently. If you want to see the state of any given user entity, click on the specific workflow to open it, and click on **Queries**, and finally **\[Run Query\]**.
 
 #### Check out Prometheus scraping
 
 Open the Prometheus scraping targets display by opening a browser and entering the address http://localhost:9090/targets.
 
-Some targets may be down because we’ve not used all the potentially configured instances contained in the observability/prometheus.yml file.
+Some targets may be down because we have not used all the potentially configured instances contained in the observability/prometheus.yml file.
 
 ### Thoughts on Pipeline Scalability
 
@@ -189,9 +180,9 @@ $ docker compose scale entity=6
 ```
 
 
-### How to shutdown.
+### How to shut down.
 
-There should be two terminal windows open. You can enter the “d” charter to detach, and then enter:  
+There should be two terminal windows open. You can enter the “d” character to detach, and then enter:  
 ```bash 
 docker compose down  
 ```
