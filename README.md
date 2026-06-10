@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This repository along with its corresponding blog demonstrates how to build, test, and run Entities using Temporal Workflows This blog post along with its corresponding Github repo demonstrates how to build, test, and run Entities using Temporal Workflows and the Java SDK.
+This repository along with its corresponding blog demonstrates how to build, test, and run Entities using Temporal Workflows with the Java SDK.
 
 ## What are Entities?
 
