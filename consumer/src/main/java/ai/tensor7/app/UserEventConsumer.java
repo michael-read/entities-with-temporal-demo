@@ -90,26 +90,24 @@ public class UserEventConsumer {
         // Set up a new scope, report every 1 second
         Scope scope =
                 new RootScopeBuilder()
-                        // shows how to set custom tags
-/*
-                        .tags(
-                                ImmutableMap.of(
-                                        "starterCustomTag1",
-                                        "starterCustomTag1Value",
-                                        "starterCustomTag2",
-                                        "starterCustomTag2Value"))
-*/
                         .reporter(new MicrometerClientStatsReporter(registry))
                         .reportEvery(com.uber.m3.util.Duration.ofSeconds(1));
         // Start the prometheus scrape endpoint for starter metrics
-        scrapeEndpoint = MetricsUtils.startPrometheusScrapeEndpoint(registry, context.getSystem().settings().config().getInt("app.temporal-prometheus-metrics-port"));
+        scrapeEndpoint = MetricsUtils.startPrometheusScrapeEndpoint(
+                registry,
+                context.getSystem().settings().config().getInt("app.temporal-prometheus-metrics-port")
+        );
 
         // Add metrics scope to workflow service stub options, preserving env config
         WorkflowServiceStubs temporalService = WorkflowServiceStubs.newServiceStubs(
                 WorkflowServiceStubsOptions.newBuilder()
                         .setMetricsScope(scope) // Add metrics scope to workflow service stub options, preserving env config
-                        .setTarget(context.getSystem().settings().config().getString("app.temporal-server-target"))
-                        .setEnableHttps(context.getSystem().settings().config().getBoolean("app.temporal-server-https-enabled"))
+                        .setTarget(
+                                context.getSystem().settings().config().getString("app.temporal-server-target")
+                        )
+                        .setEnableHttps(
+                                context.getSystem().settings().config().getBoolean("app.temporal-server-https-enabled")
+                        )
                         .build());
         temporalClient = WorkflowClient.newInstance(temporalService);
 
@@ -328,15 +326,22 @@ public class UserEventConsumer {
                                 record.getQuantity(),
                                 record.getPrice()
                         );
-                        UserInput userInput = new UserInput(record.getUserId(), Optional.empty(), false);
+                        UserInput userInput = new UserInput(
+                                record.getUserId(), Optional.empty(), false
+                        );
 
-                        WorkflowStub untypedWorkflowStub = temporalClient.newUntypedWorkflowStub("UserEntityWorkflow",
+                        WorkflowStub untypedWorkflowStub = temporalClient.newUntypedWorkflowStub(
+                                "UserEntityWorkflow",
                                 WorkflowOptions.newBuilder()
                                         .setWorkflowId(temporalWorkflowIdPrefix + record.getUserId())
                                         .setTaskQueue(temporalTaskQueue)
-                                        .build());
+                                        .build()
+                        );
 
-                        WorkflowExecution wfexec = untypedWorkflowStub.signalWithStart("purchaseEvent", new Object[]{event}, new Object[]{userInput});
+                        WorkflowExecution wfexec = untypedWorkflowStub.signalWithStart(
+                                "purchaseEvent",
+                                new Object[]{event}, new Object[]{userInput}
+                        );
                         pulsarPositiveAcksActor.tell(new PulsarCumulativePositiveAcksActor.DoPositiveAck(msg.getMessageId()));
                         return wfexec;
 
