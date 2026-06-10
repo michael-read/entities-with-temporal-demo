@@ -182,7 +182,7 @@ $ docker compose scale entity=6
 
 ### How to shut down.
 
-There should be two terminal windows open. You can enter the “d” character to detach, and then enter:  
+There should be two terminal windows open. You can enter the “d” character to detach, and then enter the following command in each respective window:  
 ```bash 
 docker compose down  
 ```
