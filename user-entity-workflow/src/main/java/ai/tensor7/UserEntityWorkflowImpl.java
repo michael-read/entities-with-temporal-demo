@@ -1,58 +1,41 @@
 package ai.tensor7;
 
+import ai.tensor7.model.EntityConfig;
 import ai.tensor7.model.UserInput;
 import ai.tensor7.model.UserPurchaseEvent;
 import ai.tensor7.model.UserState;
+import io.temporal.activity.ActivityOptions;
 import io.temporal.workflow.Workflow;
 import org.slf4j.Logger;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.Duration;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Properties;
 
 public class UserEntityWorkflowImpl implements UserEntityWorkflow {
 
     private final Logger log = Workflow.getLogger(UserEntityWorkflowImpl.class);
 
-    private Duration maxAwaitTime;
+    private final LocalConfigActivities localConfigActivities = Workflow.newActivityStub(
+            LocalConfigActivities.class,
+            ActivityOptions.newBuilder()
+                    .setStartToCloseTimeout(Duration.ofSeconds(30))
+                    .build());
+
+    private EntityConfig config;
 
     boolean exitRequested = false;
     int maxHistoryLength = 0;
 
     UserState userState = UserState.empty();
 
-    public UserEntityWorkflowImpl() {
-        Properties appProps = new Properties();
-
-        // Load from classpath root
-        try (InputStream input = ClassLoader.getSystemResourceAsStream("app.properties")) {
-            if (input == null) {
-                log.error("Sorry, unable to find app.properties");
-                System.exit(1);
-            }
-            appProps.load(input);
-        }
-        catch (IOException ex) {
-            log.error("An IOException occurred", ex);
-        }
-        // capture ENV settings for potential override
-        Map<String, String> env = System.getenv();
-
-        maxAwaitTime = Duration.parse(appProps.getProperty("user-entity-polling-rate"));
-        // override setting from environment
-        if (env.containsKey("USER_ENTITY_POLLLING_RATE")) {
-            maxAwaitTime = Duration.parse(env.get("TEMPORAL_SERVER_TARGET"));
-        }
-    }
-
     @Override
     public String create(UserInput input) {
         if (log.isDebugEnabled()) {
             log.debug("create on UserEntityWorkflowImpl called for user ID: {}", input.userId());
         }
+
+        config = localConfigActivities.getEntityConfig();
+
         // Make sure we capature the UserID as it's possible the state was initally created through a signal
         if (userState.userId().length() == 0) {
             userState = userState.withUserId(input.userId());
@@ -64,7 +47,7 @@ public class UserEntityWorkflowImpl implements UserEntityWorkflow {
         if (input.testContinueAsNew()) maxHistoryLength = 7;
 
         do {
-            Workflow.await(maxAwaitTime, () -> exitRequested);
+            Workflow.await(config.maxPollingAwaitTime(), () -> exitRequested);
         } while (!exitRequested && !shouldContinueAsNew());
 
         if (log.isDebugEnabled()) {
