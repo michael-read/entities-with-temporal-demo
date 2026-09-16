@@ -4,7 +4,7 @@
     <parent>
         <groupId>ai.tensor7</groupId>
         <artifactId>entity-demo-parent-java</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
     </parent>
 
     <artifactId>temporal-entity-demo-consumer</artifactId>

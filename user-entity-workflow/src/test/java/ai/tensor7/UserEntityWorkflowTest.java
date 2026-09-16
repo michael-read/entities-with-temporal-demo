@@ -1,8 +1,10 @@
 package ai.tensor7;
 
+import ai.tensor7.model.EntityConfig;
 import ai.tensor7.model.UserInput;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 import ai.tensor7.model.UserPurchaseEvent;
 import ai.tensor7.model.UserState;
@@ -23,16 +25,25 @@ public class UserEntityWorkflowTest {
 
     static final String userId = "Mike";
 
+    private static final LocalConfigActivities mockLocalConfigActivities = mock(LocalConfigActivities.class, withSettings().withoutAnnotations());
+
+    private final EntityConfig config = new EntityConfig(
+            Duration.ofMillis(100)
+    );
+
     @RegisterExtension
     public static final TestWorkflowExtension testWorkflowExtension =
             TestWorkflowExtension.newBuilder()
                     .setWorkflowTypes(UserEntityWorkflowImpl.class)
+                    .setActivityImplementations(mockLocalConfigActivities)
                     .setDoNotStart(true)
                     .build();
 
     @Test
     public void startUserEntityWorkflowAndExit(TestWorkflowEnvironment testEnv, Worker worker,
                                           UserEntityWorkflow workflow) {
+
+        when(mockLocalConfigActivities.getEntityConfig()).thenReturn(config);
 
         testEnv.start();
 
@@ -51,6 +62,8 @@ public class UserEntityWorkflowTest {
     @Test
     public void testUserEntityWorkflowSignals(TestWorkflowEnvironment testEnv, Worker worker,
                                        UserEntityWorkflow workflow) {
+
+        when(mockLocalConfigActivities.getEntityConfig()).thenReturn(config);
 
         testEnv.start();
 
@@ -81,6 +94,8 @@ public class UserEntityWorkflowTest {
     @Test
     public void testUserEntityWorkflowIgnoreDups(TestWorkflowEnvironment testEnv, Worker worker,
                                               UserEntityWorkflow workflow) {
+
+        when(mockLocalConfigActivities.getEntityConfig()).thenReturn(config);
 
         testEnv.start();
 
@@ -115,6 +130,8 @@ public class UserEntityWorkflowTest {
     public void testUserEntityWorkflowStartAsNew(TestWorkflowEnvironment testEnv, Worker worker,
                                                  UserEntityWorkflow workflow) throws InterruptedException {
 
+        when(mockLocalConfigActivities.getEntityConfig()).thenReturn(config);
+
         testEnv.start();
 
         // Start workflow asynchronously
@@ -136,7 +153,6 @@ public class UserEntityWorkflowTest {
 
         for (UserPurchaseEvent event : events) {
             workflow.purchaseEvent(event);
-            Thread.sleep(Duration.ofSeconds(9)); // we need to wait since the workflow only checks once a minute
         }
         
         // end workflow
