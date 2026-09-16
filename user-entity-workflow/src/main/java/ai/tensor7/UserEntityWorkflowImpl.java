@@ -18,7 +18,7 @@ public class UserEntityWorkflowImpl implements UserEntityWorkflow {
     private final LocalConfigActivities localConfigActivities = Workflow.newActivityStub(
             LocalConfigActivities.class,
             ActivityOptions.newBuilder()
-                    .setStartToCloseTimeout(Duration.ofSeconds(30))
+                    .setStartToCloseTimeout(Duration.ofSeconds(5))
                     .build());
 
     private EntityConfig config;

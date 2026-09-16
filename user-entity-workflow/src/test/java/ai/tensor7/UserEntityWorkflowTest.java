@@ -153,7 +153,6 @@ public class UserEntityWorkflowTest {
 
         for (UserPurchaseEvent event : events) {
             workflow.purchaseEvent(event);
-            Thread.sleep(Duration.ofSeconds(9)); // we need to wait since the workflow only checks once a minute
         }
         
         // end workflow

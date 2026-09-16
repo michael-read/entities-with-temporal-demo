@@ -1,5 +1,11 @@
 # **Entity Demo with Temporal Workflows**
 
+## Update: Sept 16, 2026 — Workflow Configuration Pattern
+
+**Problem:** Reading configuration directly from `app.properties` within the `UserEnityWorkflow` created a non-determinism risk. If configuration changes between a workflow's original execution and its subsequent recovery/replay, the workflow would load different values, violating Temporal's determinism guarantees.
+
+**Solution:** Workflow configuration is now fetched through a dedicated **Activity** called `LocalConfigActivities`. Because Activity results are recorded in the workflow history, the same configuration values are guaranteed during any recovery or replay, ensuring consistent, deterministic behavior.
+
 ## Introduction
 
 This repository, along with its corresponding [blog post here](https://www.tensor7.ai/post/creating-entities-with-temporal-workflows) demonstrates how to build, test, and run Entities using Temporal Workflows with the Java SDK.
